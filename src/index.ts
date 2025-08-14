@@ -759,13 +759,16 @@ function is_authorized(authorization_header: string, username: string, password:
 }
 
 export default {
-	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+	async fetch(request: Request, env: Env): Promise<Response> {
 		const { bucket } = env;
 
-		if (
-			request.method !== 'OPTIONS' &&
-			!is_authorized(request.headers.get('Authorization') ?? '', env.USERNAME, env.PASSWORD)
-		) {
+		// Check if the request is for the /public folder
+		const url = new URL(request.url);
+		const is_public_path = url.pathname.startsWith('/public/');
+		const require_auth = request.method !== 'OPTIONS' && !is_public_path;
+
+		// Skip authorization for OPTIONS requests and /public folder access
+		if (require_auth && !is_authorized(request.headers.get('Authorization') ?? '', env.USERNAME, env.PASSWORD)) {
 			return new Response('Unauthorized', {
 				status: 401,
 				headers: {
