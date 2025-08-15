@@ -1,5 +1,4 @@
 export interface Env {
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
 	bucket: R2Bucket;
 }
 
@@ -171,7 +170,7 @@ export default {
 
 		// Check if the request is for the /public folder
 		const url = new URL(request.url);
-		const is_public_path = url.pathname.startsWith('/public/') || url.pathname === '/public';
+		const is_public_path = url.pathname.startsWith('/public/');
 
 		// Skip authorization for OPTIONS requests and /public folder access
 		if (!is_public_path) {
