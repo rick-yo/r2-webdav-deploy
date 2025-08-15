@@ -2,7 +2,7 @@
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/abersheeran/r2-webdav)
 
-Use Cloudflare Workers to provide a WebDav interface for Cloudflare R2.
+Use Cloudflare Workers to list content in Cloudflare R2.
 
 ## Usage
 
@@ -18,9 +18,6 @@ Then use wrangler to deploy.
 
 ```bash
 wrangler deploy
-
-wrangler secret put USERNAME
-wrangler secret put PASSWORD
 ```
 
 ## Development
@@ -34,7 +31,3 @@ $ npm run dev
 # deploy your Worker globally to the Cloudflare network (update your wrangler.toml file for configuration)
 $ npm run deploy
 ```
-
-## Test
-
-Use [litmus](https://github.com/notroj/litmus) to test.
